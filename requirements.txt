@@ -1,0 +1,6 @@
+numpy
+pillow
+jupyter
+notebook
+ipykernel
+matplotlib
