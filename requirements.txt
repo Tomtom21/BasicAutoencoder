@@ -4,3 +4,4 @@ jupyter
 notebook
 ipykernel
 matplotlib
+tqdm
