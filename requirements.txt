@@ -5,3 +5,5 @@ notebook
 ipykernel
 matplotlib
 tqdm
+torch
+torchvision
