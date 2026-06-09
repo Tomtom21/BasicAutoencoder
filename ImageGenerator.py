@@ -70,5 +70,3 @@ class ImageGenerator:
 
         result = Image.alpha_composite(pil_image, txt_layer).convert('RGB')
         return np.array(result)
-            
-        
