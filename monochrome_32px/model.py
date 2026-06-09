@@ -1,6 +1,6 @@
 from torch import nn
 
-class MonochromeAutoEncoder:
+class MonochromeAutoEncoder(nn.Module):
     def __init__(self):
         super(MonochromeAutoEncoder, self).__init__()
 
@@ -41,3 +41,6 @@ class MonochromeAutoEncoder:
         x = self.deconv3(x)
 
         return x
+
+    def forward(self, x):
+        return self.decode(self.encode(x))
