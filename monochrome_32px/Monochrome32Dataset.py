@@ -3,6 +3,7 @@ import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 class Monochrome32Dataset(Dataset):
     def __init__(self, data_dir_path):
@@ -13,7 +14,7 @@ class Monochrome32Dataset(Dataset):
         )
 
         images = []
-        for image_file in self.image_files:
+        for image_file in tqdm(self.image_files, desc="Loading images"):
             image_path = os.path.join(self.data_dir_path, image_file)
             
             # Loading the image as a grayscale image and normalizing to [0, 1]
