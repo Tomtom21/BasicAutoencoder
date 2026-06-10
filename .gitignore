@@ -183,3 +183,4 @@ cython_debug/
 # Ignoring our dataset file
 dataset/
 *.pth
+*.png
