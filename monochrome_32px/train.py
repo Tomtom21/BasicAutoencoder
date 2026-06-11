@@ -72,6 +72,8 @@ for epoch in range(args.epochs):
                 loss = loss_func(output, batch)
                 test_loss += loss.item() * batch.shape[0]
                 pbar.update(batch.shape[0])
+
+    # Resetting our model back to train mode
     model.train()
 
     # Keeping track of the losses
