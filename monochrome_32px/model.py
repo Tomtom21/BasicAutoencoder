@@ -1,4 +1,6 @@
-from torch import nn
+from torch import nn, sigmoid
+import torch.nn.functional as F
+
 
 class MonochromeAutoEncoder(nn.Module):
     def __init__(self):
@@ -23,22 +25,22 @@ class MonochromeAutoEncoder(nn.Module):
         self.deconv3 = nn.ConvTranspose2d(16, 1, kernel_size=3, stride=2, padding=1, output_padding=1) # 32x32
 
     def encode(self, x):
-        x = self.conv1(x)
+        x = F.relu(self.conv1(x))
         x = self.pooling1(x)
 
-        x = self.conv2(x)
+        x = F.relu(self.conv2(x))
         x = self.pooling2(x)
 
-        x = self.conv3(x)
+        x = F.relu(self.conv3(x))
         x = self.pooling3(x)
 
         return x
 
 
     def decode(self, x):
-        x = self.deconv1(x)
-        x = self.deconv2(x)
-        x = self.deconv3(x)
+        x = F.relu(self.deconv1(x))
+        x = F.relu(self.deconv2(x))
+        x = sigmoid(self.deconv3(x))
 
         return x
 
