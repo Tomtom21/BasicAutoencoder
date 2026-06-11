@@ -47,8 +47,8 @@ for epoch in range(args.epochs):
     # Setting up a pbar for progress tracking
     with tqdm(total=len(train_dataset), desc=f"Epoch {epoch + 1}/{args.epochs}") as pbar:
         for batch in train_loader:
-            # For an autoencoder the target is the input itself
-            batch = batch.unsqueeze(1)  # (B, 1, 32, 32)
+            # (b, 1, 32, 32)
+            batch = batch.unsqueeze(1)  
             model.zero_grad()
 
             output = model(batch)
@@ -65,7 +65,8 @@ for epoch in range(args.epochs):
     with torch.no_grad():
         with tqdm(total=len(test_dataset), desc=f"Epoch {epoch + 1}/{args.epochs} (test)") as pbar:
             for batch in test_loader:
-                batch = batch.unsqueeze(1)  # (B, 1, 32, 32)
+                # (b, 1, 32, 32)
+                batch = batch.unsqueeze(1)
 
                 output = model(batch)
                 loss = loss_func(output, batch)
