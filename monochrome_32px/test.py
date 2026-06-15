@@ -5,8 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import torch
 
-from Monochrome32Dataset import Monochrome32Dataset
-from model import MonochromeAutoEncoder
+from monochrome_32px.Monochrome32Dataset import Monochrome32Dataset
+from monochrome_32px.model import MonochromeAutoEncoder
 
 # Setting up the argument parser
 parser = argparse.ArgumentParser(description="Visualise autoencoder on validation images")
