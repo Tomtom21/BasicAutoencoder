@@ -59,10 +59,9 @@ class Tester:
         n = originals.shape[0]
         fig, axes = plt.subplots(2, n, figsize=(n * 1.5, 3))
 
-        # If we don't have a a set of channels dedicated to the 
         # Determine if images are grayscale or color based on channel dimension
-        # Assume images are in (batch, channels, height, width) format
-        num_channels = originals.shape[1] if originals.dim() == 4 else 1
+        # Images are in (batch, channels, height, width) format
+        num_channels = originals.shape[1]
         is_grayscale = num_channels == 1
         cmap = "gray" if is_grayscale else None
 
@@ -70,17 +69,14 @@ class Tester:
             orig_img = originals[i].cpu()
             recon_img = reconstructed[i].cpu()
 
-            # For single-channel images, squeeze the channel dimension for display
-            if orig_img.dim() == 3 and orig_img.shape[0] == 1:
+            # converting from (c, h, w) to correct format
+            if num_channels == 1:
+                # if grayscale, squeeze channel dimension
                 orig_img = orig_img.squeeze(0)
-            elif orig_img.dim() == 3 and orig_img.shape[0] == 3:
-                # For RGB, convert from (C, H, W) to (H, W, C)
-                orig_img = orig_img.permute(1, 2, 0)
-
-            if recon_img.dim() == 3 and recon_img.shape[0] == 1:
                 recon_img = recon_img.squeeze(0)
-            elif recon_img.dim() == 3 and recon_img.shape[0] == 3:
-                # For RGB, convert from (C, H, W) to (H, W, C)
+            else:
+                # if rgb, convert from (c, h, w) to (h, w, c)
+                orig_img = orig_img.permute(1, 2, 0)
                 recon_img = recon_img.permute(1, 2, 0)
 
             axes[0, i].imshow(orig_img, cmap=cmap, vmin=0, vmax=1)

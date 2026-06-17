@@ -52,7 +52,10 @@ class ImageDataset(Dataset):
 
         if self.color_mode == "RGB":
             # (n, h, w, c) -> (n, c, h, w)
-            self.images = self.images.permute(0, 3, 1, 2)  
+            self.images = self.images.permute(0, 3, 1, 2)
+        elif self.color_mode == "L":
+            # (n, h, w) -> (n, 1, h, w) - add channel dimension for grayscale
+            self.images = self.images.unsqueeze(1)
 
     def __len__(self):
         return len(self.images)

@@ -7,12 +7,6 @@ from monochrome_32px.Monochrome32Dataset import Monochrome32Dataset
 from monochrome_32px.model import MonochromeAutoEncoder
 
 
-class MonochromeTrainer(Trainer):
-    def _batch_preprocessing(self, batch: torch.Tensor):
-        """Overriding the method from the Trainer class"""
-        return batch.unsqueeze(1)
-
-
 if __name__ == "__main__":
     # Load datasets
     dataset_dir = Path(__file__).parent.parent / "dataset"
@@ -30,7 +24,7 @@ if __name__ == "__main__":
     save_dir = Path(__file__).parent
 
     # Create and run trainer
-    trainer = MonochromeTrainer(
+    trainer = Trainer(
         model=model,
         train_dataset=train_dataset,
         test_dataset=test_dataset,
